@@ -153,3 +153,57 @@ document.getElementById('book-list').addEventListener('click', function(e){
 
   e.preventDefault();
 });
+
+// GET call for the best sellers btn
+
+//document.getElementById('get-msg').addEventListener('click', msgData);
+
+// create function for booklist get call
+/*function msgData() {
+  const xhr = new XMLHttpRequest();
+
+  xhr.open('GET', 'data.txt', true);
+
+  xhr.onload = function(){
+    if(this.status === 200) {
+      document.getElementById('put-msg2').innerHTML = `<h1>${this.responseText}</h1>`;
+    }
+  }
+
+  xhr.onerror = function() {
+    console.log('request error...');
+  }
+
+  xhr.send();
+}*/
+
+// GET call using json array file
+document.getElementById('get-msg').addEventListener('click', loadBooks);
+
+function loadBooks(e){
+  xhr = new XMLHttpRequest();
+
+  xhr.open('GET', 'best-sellers.json', true);
+
+  xhr.onload = function(){
+    if(this.status = 200){
+      const list = JSON.parse(this.responseText);
+
+      let output = '';
+      list.forEach(function(list){
+        output += `
+          <ul>
+            <li>Book: ${list.book}</li>
+            <li>Author: ${list.author}</li>
+            <li>ISBN: ${list.isbn}</li>
+          </ul>
+        `;
+
+        document.getElementById('put-msg2').innerHTML = output;
+      });
+
+    }
+  }
+
+  xhr.send();
+}
